@@ -141,6 +141,40 @@ describe("Scutil Parsing", () => {
         });
     });
 
+    it("should parse a complex made-up output structure", () => {
+        const parsed = parseScutilOutput(
+`<dictionary> {
+    InitialValue : :value:
+    FirstArray : <array> {
+    }
+    SecondArray : <array> {
+        0 : .
+    }
+    ThirdArray : <array> {
+        0 : <dictionary> {
+            inner-value : special{value}
+        }
+    }
+    Value : <dictionary> {
+        a : b
+        c : d
+    }
+}`);
+
+        expect(parsed).to.deep.equal({
+            InitialValue: ":value:",
+            FirstArray: [],
+            SecondArray: ['.'],
+            ThirdArray: [
+                { "inner-value": "special{value}" }
+            ],
+            Value: {
+                a: 'b',
+                c: 'd'
+            }
+        });
+    });
+
     it("should clearly error given invalid input", () => {
         expect(() =>
             parseScutilOutput(`{`)
