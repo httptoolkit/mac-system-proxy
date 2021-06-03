@@ -10,7 +10,7 @@
   "scripts": {
     "build": "tsc -p .",
     "pretest": "npm run build",
-    "test": "TS_NODE_FILES=true mocha -r ts-node/register 'test.ts'"
+    "test": "TS_NODE_FILES=true mocha -r ts-node/register 'test/*.spec.ts'"
   },
   "repository": {
     "type": "git",
@@ -34,6 +34,7 @@
   "devDependencies": {
     "@types/chai": "^4.2.18",
     "@types/mocha": "^8.2.2",
+    "@types/node": "^15.9.0",
     "chai": "^4.3.4",
     "mocha": "^8.4.0",
     "ts-node": "^10.0.0",
