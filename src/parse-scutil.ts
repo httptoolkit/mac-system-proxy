@@ -1,7 +1,7 @@
 const TYPE_KEY = "__scutil__type__";
 
 // Quick hacky parser, which translates output into valid JSON:
-export function parseScutilOutput(output: string) {
+export function parseScutilOutput(output: string): {} {
     try {
         const jsonFormattedString = output
             // Reduce type markers to just an inline __scutil__type__ marker on array objects:
