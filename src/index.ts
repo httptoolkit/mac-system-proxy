@@ -38,7 +38,13 @@ export function getMacSystemProxy(): Promise<MacProxySettings> {
         scutilProc.on('exit', (code, signal) => {
             if (code !== 0) reject(new Error(`Scutil exited with ${code || signal}`));
             const output = Buffer.concat(stdoutData).toString('utf8');
-            resolve(parseScutilOutput(output));
+
+            try {
+                resolve(parseScutilOutput(output));
+            } catch (e) {
+                reject(e);
+            }
+
         });
     });
 }
