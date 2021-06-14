@@ -7,9 +7,17 @@ export function parseScutilOutput(output: string): {} {
             // Reduce type markers to just an inline __scutil__type__ marker on array objects:
             .replace(/<dictionary>/g, '')
             .replace(/<array> {/g, `{ ${TYPE_KEY} : array`)
+            .replace(/ : $/mg, ' : ""') // Completely empty dictionary value
             .split(/\s+/)
+            // Wrap up everything except structural tokens as strings:
             .map((token) => {
-                if (!token || token === ':' || token === '{' || token === '}') return token;
+                if (
+                    !token ||
+                    token === ':' ||
+                    token === '{' ||
+                    token === '}' ||
+                    token === '""'
+                ) return token;
                 else return '"' + token + '"';
             })
             .join(' ')

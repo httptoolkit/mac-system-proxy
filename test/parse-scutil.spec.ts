@@ -44,6 +44,23 @@ describe("Scutil Parsing", () => {
         });
     });
 
+    it("should parse an empty proxy configuration with blank auth details", () => {
+        const parsed = parseScutilOutput(
+`<dictionary> {
+    HTTPEnable : 0
+    HTTPSEnable : 0
+    HTTPSUser :${' '}
+    HTTPUser :${' '}
+}`);
+
+        expect(parsed).to.deep.equal({
+            HTTPEnable: "0",
+            HTTPSEnable: "0",
+            HTTPSUser: "",
+            HTTPUser: ""
+        });
+    });
+
     it("should parse an HTTP and HTTPS proxy configuration", () => {
         const parsed = parseScutilOutput(
 `<dictionary> {
