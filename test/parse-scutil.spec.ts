@@ -6,7 +6,8 @@ describe("Scutil Parsing", () => {
     it("should parse an empty proxy configuration", () => {
         const parsed = parseScutilOutput(
 `<dictionary> {
-}`);
+}
+`);
 
         expect(parsed).to.deep.equal({});
     });
@@ -16,7 +17,8 @@ describe("Scutil Parsing", () => {
 `<dictionary> {
     HTTPEnable : 0
     HTTPSEnable : 0
-}`);
+}
+`);
 
         expect(parsed).to.deep.equal({
             HTTPEnable: "0",
@@ -34,7 +36,8 @@ describe("Scutil Parsing", () => {
     ExcludeSimpleHostnames : 1
     HTTPEnable : 0
     HTTPSEnable : 0
-}`);
+}
+`);
 
         expect(parsed).to.deep.equal({
             ExceptionsList: ['localhost', '127.0.0.1'],
@@ -51,7 +54,8 @@ describe("Scutil Parsing", () => {
     HTTPSEnable : 0
     HTTPSUser :${' '}
     HTTPUser :${' '}
-}`);
+}
+`);
 
         expect(parsed).to.deep.equal({
             HTTPEnable: "0",
@@ -74,7 +78,8 @@ describe("Scutil Parsing", () => {
     HTTPSUser : user
     SOCKSEnable : 0
     SOCKSUser : user
-}`);
+}
+`);
 
         expect(parsed).to.deep.equal({
             "ExcludeSimpleHostnames": "1",
@@ -87,6 +92,19 @@ describe("Scutil Parsing", () => {
             "HTTPSUser": "user",
             "SOCKSEnable": "0",
             "SOCKSUser": "user"
+        });
+    });
+
+    it("should parse values containing commas", () => {
+        const parsed = parseScutilOutput(
+`<dictionary> {
+    ExceptionsList : <array> {
+        0 : *.local, 169.254/16
+    }
+}
+`);
+        expect(parsed).to.deep.equal({
+            ExceptionsList: ['*.local, 169.254/16']
         });
     });
 
@@ -103,7 +121,8 @@ describe("Scutil Parsing", () => {
     ProxyAutoConfigEnable : 1
     ProxyAutoConfigURLString : http://wpad/wpad.dat
     ProxyAutoDiscoveryEnable : 1
-}`);
+}
+`);
 
         expect(parsed).to.deep.equal({
             ExceptionsList: ['localhost', '127.0.0.1'],
@@ -126,7 +145,8 @@ describe("Scutil Parsing", () => {
     SOCKSPort : 2020
     SOCKSProxy : 127.0.0.1
     SOCKSUser : user
-}`);
+}
+`);
 
         expect(parsed).to.deep.equal({
             "ExcludeSimpleHostnames": "1",
@@ -147,7 +167,8 @@ describe("Scutil Parsing", () => {
     HTTPSEnable : 0
     ProxyAutoConfigEnable : 1
     ProxyAutoConfigURLString : http://example.com/proxy.pac
-}`);
+}
+`);
 
         expect(parsed).to.deep.equal({
             "ExcludeSimpleHostnames": "1",
@@ -176,7 +197,8 @@ describe("Scutil Parsing", () => {
         a : b
         c : d
     }
-}`);
+}
+`);
 
         expect(parsed).to.deep.equal({
             InitialValue: ":value:",
@@ -203,7 +225,8 @@ describe("Scutil Parsing", () => {
             parseScutilOutput(
 `<dictionary> {
     IncompleteValue :
-}`)
+}
+`)
         ).to.throw('Unexpected scutil proxy output format');
     });
 });
