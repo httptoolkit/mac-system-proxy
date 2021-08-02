@@ -75,7 +75,7 @@ describe("Scutil Parsing", () => {
     HTTPSEnable : 1
     HTTPSPort : 8443
     HTTPSProxy : 127.0.0.1
-    HTTPSUser : user
+    HTTPSUser : domain\\user
     SOCKSEnable : 0
     SOCKSUser : user
 }
@@ -89,7 +89,7 @@ describe("Scutil Parsing", () => {
             "HTTPSEnable": "1",
             "HTTPSPort": "8443",
             "HTTPSProxy": "127.0.0.1",
-            "HTTPSUser": "user",
+            "HTTPSUser": "domain\\user",
             "SOCKSEnable": "0",
             "SOCKSUser": "user"
         });

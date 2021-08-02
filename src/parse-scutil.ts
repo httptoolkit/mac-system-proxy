@@ -18,7 +18,7 @@ export function parseScutilOutput(output: string): {} {
 
                 if (value === undefined) return key.trim();
                 else if (value === '{') return `"${key.trim()}": {`;
-                else return `"${key.trim()}": "${value.trim()}"`;
+                else return `"${key.trim()}": ${JSON.stringify(value.trim())}`;
             });
 
         // Insert commas everywhere they're needed
