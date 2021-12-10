@@ -3,6 +3,11 @@ import { parseScutilOutput } from '../src/parse-scutil';
 
 describe("Scutil Parsing", () => {
 
+    it("should parse totally blank scutil output", () => {
+        const parsed = parseScutilOutput('');
+        expect(parsed).to.deep.equal({});
+    });
+
     it("should parse an empty proxy configuration", () => {
         const parsed = parseScutilOutput(
 `<dictionary> {

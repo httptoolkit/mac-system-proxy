@@ -3,6 +3,9 @@ const TYPE_KEY = "__scutil__type__";
 // Quick hacky parser, which translates output into valid JSON:
 export function parseScutilOutput(output: string): {} {
     try {
+        // Unclear how this happens, but it seems that it can in some cases:
+        if (output === '') return {};
+
         const unquotedJsonString = output
             // Reduce type markers to just an inline __scutil__type__ marker on array objects:
             .replace(/<dictionary> /g, '')
